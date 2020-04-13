@@ -1,55 +1,72 @@
 {
-    "users": [
-        {
-            "id": "1",
-            "fname": "Admin-1",
-            "lname": "LAdmin-1",
-            "age": 26,
-            "address": {
-                "city": "Lviv",
-                "str": "Naukova"
-            },
-            "hobby": [ "photo"]
-
-        },
-        {
-            "id": "2",
-            "fname": "Admin-2",
-            "lname": "LAdmin-2",
-            "age": 27,
-            "address": {
-                "city": "Lviv",
-                "str": "Shevchenka"
-            },
-            "hobby": [ "photo", "codding", "skiing"]
-        },
-        {
-            "id": "3",
-            "fname": "Admin-3",
-            "lname": "LAdmin-3",
-            "age": 28,
-            "address": {
-                "city": "Lviv",
-                "str": "Polya"
-            },
-            "hobby": [ "codding", "skiing"]
-        },
-        {
-            "id": "4",
-            "fname": "Admin-4",
-            "lname": "LAdmin-4",
-            "age": 29,
-            "address": {
-                "city": "Lviv",
-                "str": "Stryiska"
-            },
-            "hobby": [ "skiing"]
-        }
-    ],
-    "listOfHobby": [
+  "users": [
+    {
+      "id": "1",
+      "fname": "Admin-1",
+      "lname": "LAdmin-1",
+      "age": 26,
+      "address": {
+        "city": "Lviv",
+        "str": "Naukova"
+      },
+      "hobby": [
+        "photo"
+      ]
+    },
+    {
+      "id": "2",
+      "fname": "Admin-2",
+      "lname": "LAdmin-2",
+      "age": 79,
+      "address": {
+        "city": "Lviv",
+        "str": "Shevchenka"
+      },
+      "hobby": [
         "photo",
         "codding",
-        "skiing",
-        "diving"
-    ]
+        "skiing"
+      ]
+    },
+    {
+      "id": "3",
+      "fname": "Admin-3",
+      "lname": "LAdmin-3",
+      "age": 28,
+      "address": {
+        "city": "Lviv",
+        "str": "Polya"
+      },
+      "hobby": [
+        "codding",
+        "skiing"
+      ]
+    },
+    {
+      "id": "4",
+      "fname": "Admin-4",
+      "lname": "LAdmin-4",
+      "age": 29,
+      "address": {
+        "city": "Lviv",
+        "str": "Stryiska"
+      },
+      "hobby": [
+        "skiing"
+      ]
+    },
+    {
+      "name": "dasdasdasd",
+      "password": "asdasdasdsd",
+      "owner": "GjLq3MQjI1eF1KJymeuema1lxNv2",
+      "newName": "Admin",
+      "id": "uwbskUl"
+    }
+  ],
+  "listOfHobby": [
+    "photo",
+    "codding",
+    "skiing",
+    "diving"
+  ]
 }

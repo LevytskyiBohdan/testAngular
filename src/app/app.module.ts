@@ -17,10 +17,17 @@ import {MegaMenuModule} from 'primeng/megamenu';
 import {PaginatorModule} from 'primeng/paginator';
 import {TableModule} from 'primeng/table';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {ToolbarModule} from 'primeng/toolbar';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {DialogModule} from 'primeng/dialog';
+
 
 import { HighchartsChartModule } from 'highcharts-angular';
 import { UsersHobbyComponent } from './pages/users-hobby/users-hobby.component';
 import { AllUsersComponent } from './pages/all-users/all-users.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -30,7 +37,10 @@ import { AllUsersComponent } from './pages/all-users/all-users.component';
     FirstPagesComponent,
     SecondPagesComponent,
     UsersHobbyComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    AdminComponent,
+    ModalComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +56,9 @@ import { AllUsersComponent } from './pages/all-users/all-users.component';
     PaginatorModule,
     TableModule,
     MultiSelectModule,
+    ToolbarModule,
+    SplitButtonModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
