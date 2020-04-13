@@ -16,6 +16,7 @@ import {ContextMenuModule} from 'primeng/contextmenu';
 import {MegaMenuModule} from 'primeng/megamenu';
 import {PaginatorModule} from 'primeng/paginator';
 import {TableModule} from 'primeng/table';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 import { UsersHobbyComponent } from './pages/users-hobby/users-hobby.component';
@@ -44,6 +45,7 @@ import { AllUsersComponent } from './pages/all-users/all-users.component';
     HttpClientModule,
     PaginatorModule,
     TableModule,
+    MultiSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

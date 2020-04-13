@@ -38,9 +38,8 @@ export class AllUsersComponent implements OnInit {
 
   getUsers(): void {
     this.UserService.getUsers().subscribe(data => {
-      data.json().then(res => {
         
-        res.forEach(item => {
+      data.forEach(item => {
           this.fnames.push({
             label: item.fname,
             value: item.fname,
@@ -53,8 +52,8 @@ export class AllUsersComponent implements OnInit {
           
         })
 
-        this.users = res
-      })
+        this.users = data
+     
     })
   }
 

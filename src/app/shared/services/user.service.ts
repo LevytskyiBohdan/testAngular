@@ -13,13 +13,13 @@ export class UserService {
     this.users = 'http://localhost:3000/users';
   }
 
-  // public getUsers(): Observable<Array<IUser>>{
-  //   return this.http.get<Array<IUser>>(this.url);
-  // }
-
-  public getUsers():any{
-    return from(fetch(this.users));
+  public getUsers(): Observable<Array<IUser>>{
+    return this.http.get<Array<IUser>>(this.users);
   }
+
+  // public getUsers():any{
+  //   return from(fetch(this.users));
+  // }
 
   // public getUsers():any{
   //   return from(new Promise<object>((resolve, reject) => {

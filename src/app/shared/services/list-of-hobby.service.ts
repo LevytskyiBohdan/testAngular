@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,13 @@ import { from } from 'rxjs';
 export class ListOfHobbyService {
   url: string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.url = 'http://localhost:3000/listOfHobby';
   }
 
-  getListOfHobby(): any {
-    return from(fetch(this.url));
+  getListOfHobby(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.url);
+
   }
 
 }

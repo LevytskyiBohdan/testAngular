@@ -4,6 +4,7 @@ import * as Highcharts from 'highcharts';
 import { UserService } from 'src/app/shared/services/user.service';
 import { IUser } from 'src/app/shared/interfaces/iuser';
 import { ListOfHobbyService } from 'src/app/shared/services/list-of-hobby.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-users-hobby',
@@ -21,64 +22,40 @@ export class UsersHobbyComponent implements OnInit {
       plotBorderWidth: null,
       plotShadow: false,
       type: 'pie'
-  },
-  title: {
+    },
+    title: {
       text: 'Users Hobby'
-  },
-  tooltip: {
+    },
+    tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-  },
-  accessibility: {
+    },
+    accessibility: {
       point: {
-          //@ts-ignore
-          valueSuffix: '%'
+        //@ts-ignore
+        valueSuffix: '%'
       }
-  },
-  plotOptions: {
+    },
+    plotOptions: {
       pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-          }
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+        }
       }
-  },
-  series: [{
+    },
+    series: [{
       name: 'Brands',
       colorByPoint: true,
       data: [{
-          name: 'Chrome',
-          y: 61.41,
-          //@ts-ignore
-          sliced: false,
-          selected: true
-      }, {
-          name: 'Internet Explorer',
-          y: 11.84
-      }, {
-          name: 'Firefox',
-          y: 10.85
-      }, {
-          name: 'Edge',
-          y: 4.67
-      }, {
-          name: 'Safari',
-          y: 4.18
-      }, {
-          name: 'Sogou Explorer',
-          y: 1.64
-      }, {
-          name: 'Opera',
-          y: 1.6
-      }, {
-          name: 'QQ',
-          y: 1.2
-      }, {
-          name: 'Other',
-          y: 2.61
-      }]
-  }]
+        name: 'first',
+        y: 100,
+        //@ts-ignore
+        sliced: false,
+        selected: true
+      },]
+    }]
   }; // required
   chartCallback: Highcharts.ChartCallbackFunction = function (chart) { } // optional function, defaults to null
   updateFlag: boolean = false; // optional boolean
@@ -91,12 +68,13 @@ export class UsersHobbyComponent implements OnInit {
   constructor(
     private UserService: UserService,
     private ListOfHobbyService: ListOfHobbyService,
-    ) {
+  ) {
     this.getUsers();
     this.getListOfHobby();
+    this.renderHighchart();
   }
 
-  ngOnInit()    { this.logIt(`onInit`); }
+  ngOnInit() { this.logIt(`onInit`); }
 
   ngOnDestroy() { this.logIt(`onDestroy`); }
 
@@ -110,10 +88,7 @@ export class UsersHobbyComponent implements OnInit {
   private getUsers(): void {
     this.UserService.getUsers().subscribe(
       data => {
-        data.json().then(data => {
-          console.log(data)
-          this.users = data;
-        })
+        this.users = data;
       },
       err => {
         console.log(err)
@@ -123,15 +98,57 @@ export class UsersHobbyComponent implements OnInit {
 
   private getListOfHobby(): void {
     this.ListOfHobbyService.getListOfHobby().subscribe(data => {
-      data.json().then(res => {
-        console.log(res)
-        this.listOfHobby = res;
-      })
+      this.listOfHobby = data;
     })
   }
 
   private renderHighchart(): void {
-    
+    forkJoin(
+      this.ListOfHobbyService.getListOfHobby(),
+      this.UserService.getUsers()
+    ).subscribe(([listOfHobby, users]) => {
+      const usersHobby = {};
+      let countOfHobby = 0;
+      const percentageOfHobby = [];
+      const arrayOfPercentage = [];
+
+
+      listOfHobby.forEach(hobby => {
+        Object.assign(usersHobby, { [hobby]: 0 });
+      })
+
+      users.forEach(user => {
+        user.hobby.forEach(item => {
+          countOfHobby += 1;
+          usersHobby[item] += 1;
+        })
+      })
+
+      listOfHobby.forEach(item => {
+        percentageOfHobby.push({
+          name: item,
+          y: +((usersHobby[item] * 100 / countOfHobby).toFixed(2)),
+        })
+      })
+
+      percentageOfHobby.forEach((item, idx) => {
+        if (item.y === Math.max.apply(Math, percentageOfHobby.map(item => { return item.y; }))) {
+          Object.assign(percentageOfHobby[idx].y, {
+            sliced: false,
+            selected: true,
+           })
+        }
+      })
+      
+      this.chartOptions = Object.assign({}, this.chartOptions, {
+        series: [{
+          name: 'Brands',
+          colorByPoint: true,
+          data: [...percentageOfHobby,]
+        }]
+      }
+      )
+    })
   }
 
 }
